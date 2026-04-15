@@ -1,4 +1,5 @@
 # ResumeAI — AI-Powered Resume Analyzer
+“Transform your resume into an opportunity magnet.”
 
 ResumeAI is a premium, high-performance web application designed to help job seekers optimize their resumes for Applicant Tracking Systems (ATS). Using state-of-the-art AI (NVIDIA NIM / Llama 3.1), it analyzes resumes against specific job roles to provide scores, skill gap analysis, and actionable improvement paths.
 
