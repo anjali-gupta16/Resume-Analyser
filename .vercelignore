@@ -1,0 +1,8 @@
+# Ignore backend files for Vercel deployment
+backend/
+requirements.txt
+runtime.txt
+Procfile
+.env
+*.db
+uploads/
