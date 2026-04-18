@@ -9,6 +9,12 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
+import sys
+from pathlib import Path
+
+# Fix: Add backend folder to sys.path so nested imports work when run from root
+sys.path.append(str(Path(__file__).parent))
+
 from fastapi import FastAPI, File, UploadFile, HTTPException, Depends, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, FileResponse

@@ -6,7 +6,12 @@
 (function () {
     'use strict';
 
-    const API_BASE = 'http://localhost:8000/api';
+    // Update this URL after you deploy to Railway
+    const PRODUCTION_API_URL = 'https://resume-analyser-production-10b2.up.railway.app/api';
+
+    const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:8000/api'
+        : PRODUCTION_API_URL;
 
     // --- State ---
     let selectedFile = null;
