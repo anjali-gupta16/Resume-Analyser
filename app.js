@@ -275,6 +275,12 @@
     // Analyze Button — full flow
     // ─────────────────────────────────────────
     analyzeBtn.addEventListener('click', async () => {
+        if (!isLoggedIn) {
+            showToast('Please login to analyze your resume', 'info');
+            openAuthModal();
+            return;
+        }
+
         if (!selectedFile) {
             showToast('Please upload your resume first.', 'warning');
             return;
