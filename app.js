@@ -120,12 +120,60 @@
     });
 
     // ─────────────────────────────────────────
-    // Login button
+    // Auth Modal (Login / Sign Up)
     // ─────────────────────────────────────────
-    document.getElementById('loginBtn') &&
-        document.getElementById('loginBtn').addEventListener('click', () => {
-            showToast('Login feature coming soon!', 'info');
-        });
+    const authModal     = document.getElementById('authModal');
+    const authClose     = document.getElementById('authClose');
+    const authForm      = document.getElementById('authForm');
+    const authTitle     = document.getElementById('authTitle');
+    const authSubtitle  = document.getElementById('authSubtitle');
+    const authSubmitBtn = document.getElementById('authSubmitBtn');
+    const authSwitchBtn = document.getElementById('authSwitchBtn');
+    let isSignUpMode = false;
+
+    function openAuthModal() {
+        authModal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeAuthModal() {
+        authModal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+
+    function toggleAuthMode(e) {
+        e.preventDefault();
+        isSignUpMode = !isSignUpMode;
+        
+        if (isSignUpMode) {
+            authTitle.textContent = 'Create Account';
+            authSubtitle.textContent = 'Enter your details to get started with ResumeAI';
+            authSubmitBtn.textContent = 'Sign Up';
+            authSwitchBtn.textContent = 'Log In';
+            document.querySelector('.auth-switch').childNodes[0].textContent = 'Already have an account? ';
+        } else {
+            authTitle.textContent = 'Welcome Back';
+            authSubtitle.textContent = 'Enter your details to access your account';
+            authSubmitBtn.textContent = 'Log In';
+            authSwitchBtn.textContent = 'Sign Up';
+            document.querySelector('.auth-switch').childNodes[0].textContent = "Don't have an account? ";
+        }
+    }
+
+    document.getElementById('loginBtn') && document.getElementById('loginBtn').addEventListener('click', openAuthModal);
+    authClose.addEventListener('click', closeAuthModal);
+    authModal.addEventListener('click', (e) => {
+        if (e.target === authModal) closeAuthModal();
+    });
+
+    authSwitchBtn.addEventListener('click', toggleAuthMode);
+
+    authForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const mode = isSignUpMode ? 'Account created' : 'Logged in';
+        showToast(`${mode} successfully!`, 'success');
+        setTimeout(closeAuthModal, 600);
+    });
 
     // ─────────────────────────────────────────
     // Reset upload state
