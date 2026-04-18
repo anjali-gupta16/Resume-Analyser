@@ -122,6 +122,7 @@
     // ─────────────────────────────────────────
     // Auth Modal (Login / Sign Up)
     // ─────────────────────────────────────────
+    const loginBtn      = document.getElementById('loginBtn');
     const authModal     = document.getElementById('authModal');
     const authClose     = document.getElementById('authClose');
     const authForm      = document.getElementById('authForm');
@@ -130,6 +131,30 @@
     const authSubmitBtn = document.getElementById('authSubmitBtn');
     const authSwitchBtn = document.getElementById('authSwitchBtn');
     let isSignUpMode = false;
+    let isLoggedIn   = false;
+
+    function updateAuthUI() {
+        if (!loginBtn) return;
+        if (isLoggedIn) {
+            loginBtn.textContent = 'Logout';
+            loginBtn.classList.add('is-logged-in');
+        } else {
+            loginBtn.textContent = 'Login';
+            loginBtn.classList.remove('is-logged-in');
+        }
+    }
+
+    function handleAuthAction() {
+        if (isLoggedIn) {
+            // Logout logic
+            isLoggedIn = false;
+            showToast('Logged out successfully', 'info');
+            updateAuthUI();
+        } else {
+            // Open login modal
+            openAuthModal();
+        }
+    }
 
     function openAuthModal() {
         authModal.classList.add('show');
@@ -160,7 +185,7 @@
         }
     }
 
-    document.getElementById('loginBtn') && document.getElementById('loginBtn').addEventListener('click', openAuthModal);
+    loginBtn && loginBtn.addEventListener('click', handleAuthAction);
     authClose.addEventListener('click', closeAuthModal);
     authModal.addEventListener('click', (e) => {
         if (e.target === authModal) closeAuthModal();
@@ -171,6 +196,8 @@
     authForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const mode = isSignUpMode ? 'Account created' : 'Logged in';
+        isLoggedIn = true;
+        updateAuthUI();
         showToast(`${mode} successfully!`, 'success');
         setTimeout(closeAuthModal, 600);
     });
